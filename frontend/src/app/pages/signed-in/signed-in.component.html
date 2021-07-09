@@ -1,0 +1,14 @@
+<div class="login">
+    <a routerLink="game" routerLinkActive #game="routerLinkActive">
+        <ng-container *ngIf="!game.isActive && router.url != '/home/user/'">Enter The Game</ng-container></a>
+        <a *ngIf="game.isActive" routerLink="./" routerLinkActive #back="routerLinkActive">
+            Leave</a>
+        <button *ngIf="router.url=='/home/user/'" (click)="signupStuff()">Enter The Game</button>
+    <router-outlet></router-outlet>
+</div>
+<footer class="bottomMiddle">
+    <button mat-icon-button *ngIf="user" class="example-icon" aria-label="Example icon-button with menu icon"
+        (click)="signout()">
+        <mat-icon>logout</mat-icon>
+    </button>
+</footer>

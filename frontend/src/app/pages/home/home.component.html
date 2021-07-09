@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+    <span>Fabulous Game</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"
+        (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+</mat-toolbar>
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" position="end">
+        <mat-nav-list>
+            <a class="rl" (click)="snav.toggle()" routerLink="./" routerLinkActive #home ="routerLinkActive" mat-list-item>home</a>
+            <a class="rl" (click)="snav.toggle()" routerLink="../home/login" routerLinkActive #login="routerLinkActive"
+                mat-list-item>login</a>
+                <a class="rl" *ngIf="router.url != './home/login'" (click)="snav.toggle()" routerLink="./user" routerLinkActive="active"
+                mat-list-item>game</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div style="display: flex;">
+            <div style="display: flex; height: 90vh; width: 100%">
+                <div style="flex: 4; display: flex; flex-direction: column;">
+                    <a class = "login" *ngIf="router.url === '/home'" routerLink="../home/login" routerLinkActive="active"
+                    mat-list-item>click here</a>
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+<footer>
+    footer
+</footer>

@@ -1,0 +1,31 @@
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)">
+    <p>
+        <mat-form-field appearance="standard">
+            <mat-label>Email:</mat-label>
+            <input matInput placeholder="Placeholder" type="email" formControlName="email">
+            <mat-icon matSuffix>person</mat-icon>
+            <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+            <mat-label>Password:</mat-label>
+            <input matInput placeholder="Placeholder" type="password" formControlName="password">
+            <mat-icon matSuffix>password</mat-icon>
+            <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="standard">
+            <mat-label>Confirm:</mat-label>
+            <input matInput placeholder="Placeholder" type="password" formControlName="confirm">
+            <mat-icon matSuffix>confirm</mat-icon>
+            <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+    </p>
+    <p style="display: flex; flex-wrap: nowrap;">
+        <button mat-stroked-button mat-primary type="submit" [disabled]="!signupForm.valid">Submit</button>
+        <span class="example-spacer"></span>
+        <button mat-stroked-button mat-dialog-close>Cancel</button>
+    </p>
+</form>
