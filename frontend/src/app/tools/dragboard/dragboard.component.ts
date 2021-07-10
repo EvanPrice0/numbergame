@@ -36,11 +36,9 @@ export class DragboardComponent {
     this.all = this.all.sort((n1, n2) => n1 - n2).filter(function (elem, index, self) {
       return index === self.indexOf(elem);
     });
-    console.log(this.all)
     this.extra = []
     let y = 0
-    console.log(this.all.length)
-    while ((this.all.length / 2 != y) && (this.all.length + 1) / 2 != y) {
+    while (y < this.all.length/2 ) {
       let x = this.all.pop()
       this.extra.push(x);
       y++
@@ -94,7 +92,7 @@ export class DragboardComponent {
       this.makeshift.push(event.item.data)
 
       if (this.results == 1) {
-        let dialogRef = this.dialog.open(ResultsComponent, {
+        this.dialog.open(ResultsComponent, {
           data: { header: 'YOU WIN!', footer: 'WIN WIN WIN!' },
         });
         this.getStuffSetup();
@@ -103,7 +101,7 @@ export class DragboardComponent {
     else {
       this.lives = this.lives - 1
       if (this.lives == 0) {
-        let dialogRef = this.dialog.open(ResultsComponent, {
+        this.dialog.open(ResultsComponent, {
           data: { header: 'YOU LOSE!', footer: 'Count Better' },
         });
         this.getStuffSetup();
