@@ -78,9 +78,15 @@ export class DragboardComponent {
 
   createRandomList = (results, list: number[]): number[] => {
     if (list.length < 5) {
-      return Array.from({ length: 4 }, () => Math.floor(Math.random() * results));
+      let x = Array.from({ length: 1 }, () => Math.floor(Math.random() * results))
+      let y = Array.from({ length: 1 }, () => Math.floor(Math.random() * results/2))
+      let z = Array.from({ length: 3 }, () => Math.floor(Math.random() * results/100))
+      return (x.concat(y).concat(z));
     } else {
-      return Array.from({ length: 6 }, () => Math.floor(Math.random() * results));
+      let x = Array.from({ length: 1 }, () => Math.floor(Math.random() * results))
+      let y = Array.from({ length: 1 }, () => Math.floor(Math.random() * results/2))
+      let z = Array.from({ length: 5 }, () => Math.floor(Math.random() * results/100))
+      return (x.concat(y).concat(z));  
     }
   }
 
