@@ -6,6 +6,7 @@
     <div class="oneFlexElem">
       <h2>Number</h2>
       <h4>Lives: {{lives}}</h4>
+      <h4>Timer:{{array$ | async}}</h4>
       <div id="all" cdkDropList [cdkDropListData]="all" cdkDropListConnectedTo="even"
         cdkDropListOrientation="horizontal" class="example-list" [cdkDropListEnterPredicate]="noReturnPredicate">
         <div class="example-box" *ngFor="let number of all" [cdkDragData]="number" cdkDrag>{{number}}</div>
