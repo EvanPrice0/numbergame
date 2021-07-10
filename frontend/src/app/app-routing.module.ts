@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home/login', pathMatch: 'full'},
   {path: 'home', component: HomeComponent, children: [
     {path: 'login', component: LoginComponent, },
+    {path: 'user', redirectTo: 'user/'},
     { path: 'user/:id', component: SignedInComponent, canActivate:[AuthService], children:[
       {path: 'game', component: DragboardComponent},
       
