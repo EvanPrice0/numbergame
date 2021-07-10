@@ -33,9 +33,11 @@ export class DragboardComponent {
     this.inResults = this.getListResult(results1);
     let randomList: number[] = this.createRandomList(this.results, this.inResults);
     this.all = this.inResults.concat(randomList)
-    this.all = this.all.sort((n1, n2) => n1 - n2).filter(function (elem, index, self) {
+    this.all = this.all/* .sort((n1, n2) => n1 - n2).filter(function (elem, index, self) {
       return index === self.indexOf(elem);
-    });
+    }); */.map((a) => ({sort: Math.random(), value: a}))
+    .sort((a, b) => a.sort - b.sort)
+    .map((a) => a.value)
     this.extra = []
     let y = 0
     while (y < this.all.length/2 ) {
@@ -51,7 +53,7 @@ export class DragboardComponent {
     let factors: number[] = [];
     let factors1: number[] = [];
     let divisor = 2;
-    console.log(results)
+    //console.log(results)
     for (let result of results) {
       let initresult = JSON.parse(JSON.stringify(result))
       while (result >= 2) {
@@ -65,14 +67,14 @@ export class DragboardComponent {
           break
         }
       }
-      console.log(result)
+      //console.log(result)
       if (factors1.length > factors.length) {
         factors = JSON.parse(JSON.stringify(factors1))
         this.results = initresult
       }
       factors1 = [];
     }
-    console.log(factors)
+    //console.log(factors)
     return factors;
   }
 
@@ -92,7 +94,7 @@ export class DragboardComponent {
 
 
   drop(event: CdkDragDrop<number[]>) {
-    console.log(this.results % event.item.data)
+    //console.log(this.results % event.item.data)
     if (this.results % event.item.data === 0) {
       this.results = this.results / (event.item.data)
       this.makeshift.push(event.item.data)
