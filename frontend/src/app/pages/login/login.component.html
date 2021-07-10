@@ -16,9 +16,8 @@
                 <mat-hint>Hint</mat-hint>
             </mat-form-field>
         </p>
-        <p style="display: flex; flex-wrap: nowrap;">
+        <p>
             <button mat-stroked-button type="submit" [disabled]="!profileForm.valid">Submit</button>
-            <span class="example-spacer"></span>
             <button mat-stroked-button (click)="openDialog()"> <mat-icon>person_add</mat-icon></button>
         </p>
     </form>

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { ResultsComponent } from 'src/app/modals/results/results.component';
- 
+import { range } from 'rxjs';
+
 @Component({
   selector: 'app-dragboard',
   templateUrl: './dragboard.component.html',
@@ -18,39 +19,70 @@ export class DragboardComponent {
   results = 0;
   makeshift = [];
   lives = 5;
+  extra?: number[]
 
-  getStuffSetup(){
-    this.makeshift=[]
+  getStuffSetup() {
+    this.makeshift = []
     let min = 10000;
     let max = 100000;
-    this.results = Math.floor(Math.random() * (max - min) + min);
-    this.inResults = this.getListResult(this.results);
-    let randomList: number[] = this.createRandomList(this.inResults);
+    let results1 = []
+    for (let x = 0; x < 10; x++) {
+      let y = Math.floor(Math.random() * (max - min) + min);
+      if (y % 2 == 0 || y % 3 == 0 || y % 4 == 0) results1.push(y);
+    }
+    this.inResults = this.getListResult(results1);
+    let randomList: number[] = this.createRandomList(this.results, this.inResults);
     this.all = this.inResults.concat(randomList)
-    this.all = this.all.sort((n1, n2) => n1 - n2).filter(function(elem, index, self) {
+    this.all = this.all.sort((n1, n2) => n1 - n2).filter(function (elem, index, self) {
       return index === self.indexOf(elem);
-  });
+    });
+    console.log(this.all)
+    this.extra = []
+    let y = 0
+    console.log(this.all.length)
+    while ((this.all.length / 2 != y) && (this.all.length + 1) / 2 != y) {
+      let x = this.all.pop()
+      this.extra.push(x);
+      y++
+    }
+    let x = this.all.pop()
+    this.extra.push(x);
     this.lives = 5
   }
-  getListResult = (results: number): number[] => {
-    const factors = [];
+  getListResult = (results: number[]): number[] => {
+    let factors: number[] = [];
+    let factors1: number[] = [];
     let divisor = 2;
-    while (results >= 2) {
-      if (results % divisor == 0) {
-        factors.push(divisor);
-        results = results / divisor;
-      } else {
-        divisor++;
+    console.log(results)
+    for (let result of results) {
+      let initresult = JSON.parse(JSON.stringify(result))
+      while (result >= 2) {
+        if (result % divisor == 0) {
+          factors1.push(divisor);
+          result = result / divisor;
+        } else {
+          divisor++;
+        }
+        if (divisor > result) {
+          break
+        }
       }
+      console.log(result)
+      if (factors1.length > factors.length) {
+        factors = JSON.parse(JSON.stringify(factors1))
+        this.results = initresult
+      }
+      factors1 = [];
     }
+    console.log(factors)
     return factors;
   }
 
-  createRandomList = (list: number[]): number[] => {
+  createRandomList = (results, list: number[]): number[] => {
     if (list.length < 5) {
-      return Array.from({ length: 4 }, () => Math.floor(Math.random() * (10 + Math.max(...list))));
+      return Array.from({ length: 4 }, () => Math.floor(Math.random() * results));
     } else {
-      return Array.from({ length: 6 }, () => Math.floor(Math.random() * (10 + Math.max(...list))));
+      return Array.from({ length: 6 }, () => Math.floor(Math.random() * results));
     }
   }
 
@@ -59,9 +91,8 @@ export class DragboardComponent {
     console.log(this.results % event.item.data)
     if (this.results % event.item.data === 0) {
       this.results = this.results / (event.item.data)
-      if (event.previousContainer === event.container) {
-        this.makeshift.push(event.item.data)
-      }
+      this.makeshift.push(event.item.data)
+
       if (this.results == 1) {
         let dialogRef = this.dialog.open(ResultsComponent, {
           data: { header: 'YOU WIN!', footer: 'WIN WIN WIN!' },

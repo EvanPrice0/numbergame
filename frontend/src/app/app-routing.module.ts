@@ -6,14 +6,14 @@ import { SignedInComponent } from './pages/signed-in/signed-in.component';
 import { AuthService } from './services/auth.service'
 import { DragboardComponent } from './tools/dragboard/dragboard.component';
 const routes: Routes = [
+  { path: '', redirectTo: 'home/login', pathMatch: 'full'},
   {path: 'home', component: HomeComponent, children: [
-    {path: 'login', component: LoginComponent, canActivate:[AuthService], },
+    {path: 'login', component: LoginComponent, },
     { path: 'user/:id', component: SignedInComponent, canActivate:[AuthService], children:[
       {path: 'game', component: DragboardComponent},
       
     ]},
   ]},
-  { path: '', redirectTo: 'home/login', pathMatch: 'full'},
   { path: '**', redirectTo: '/'}
 ];
 
